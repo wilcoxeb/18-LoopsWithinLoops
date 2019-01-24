@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Emily Wilcox.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -80,9 +80,38 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    original_x = circle.center.x
+    original_y = circle.center.y
+    radius = circle.radius
+
+    x = original_x
+    y = original_y
+    for j in range(r):
+        for k in range(3):
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.attach_to(window)
+            new_circle.fill_color = circle.fill_color
+            window.render(0.1)
+
+            x = x + (2 * radius)
+
+        y = y + (2 * radius)
+        x = original_x
+
+    for i in range(3):
+        for l in range(c + 3):
+            newest_circle = rg.Circle(rg.Point(x, y), radius)
+            newest_circle.attach_to(window)
+            newest_circle.fill_color = circle.fill_color
+            window.render(0.1)
+
+            x = x + (2*radius)
+
+        y = y + (2*radius)
+        x = original_x
 
 
 def run_test_draw_wall_on_right():
@@ -124,7 +153,28 @@ def draw_wall_on_right(rectangle, n, window):
     # TODO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    original_x1 = rectangle.corner_1.x
+    original_y1 = rectangle.corner_1.y
+    original_x2 = rectangle.corner_2.x
+    original_y2 = rectangle.corner_2.y
 
+    x1 = original_x1
+    x2 = original_x2
+    y1 = original_y1
+    y2 = original_y2
+    x = (x2 - x1)
+    y = (y2 - y1)
+    for i in range(n):
+        for j in range(i + 1):
+            new_rectangle = rg.Rectangle(rg.Point(x1, y1), rg.Point(x2, y2))
+            new_rectangle.attach_to(window)
+            window.render(0.1)
+            x1 = x1 - x
+            x2 = x2 - x
+        y1 = y1 + y
+        y2 = y2 + y
+        x1 = original_x1
+        x2 = original_x2
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
